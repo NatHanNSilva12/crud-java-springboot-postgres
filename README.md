@@ -22,18 +22,22 @@ Um projeto simples de API REST para gerenciar produtos (CRUD). Usei Java 17, Spr
    ```bash
    git clone https://github.com/NatHanNSilva12/crud-java-springboot-postgres.git
    cd crud-java-springboot-postgres
-
-    Crie o banco de dados no PostgreSQL (por ex. via psql ou pgAdmin):
-   CREATE DATABASE productdb;
-
+   
+Crie o banco de dados no PostgreSQL (por ex. via psql ou pgAdmin):
+```bash
+CREATE DATABASE productdb;
+```
 
 Configure suas credenciais no src/main/resources/application.properties:
+```bash
 
 spring.datasource.url=jdbc:postgresql://localhost:5432/productdb
 spring.datasource.username=postgres
 spring.datasource.password=senha123
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
+```
+
 
 # Inicie o projeto com:
 
@@ -43,38 +47,30 @@ spring.jpa.show-sql=true
 
 # Endpoints (Insomnia / Postman)
 
-Use Endpoints como estes—sem chaves {} no número.
-Método	Endpoint	Descrição
-GET	/api/products	Lista todos
-GET	/api/products/1	Busca pelo ID
-POST	/api/products	Cria (no body: { "name": "...", "description": "...", "price": ... })
-PUT	/api/products/1	Atualiza produto
-DELETE	/api/products/1	Remove produto
-Estrutura do projeto
+GET todos produtos:
 
-└── src
-    └── main
-        └── java
-            └── com.example.demo
-                ├── controller
-                │   └── ProductController.java
-                ├── service
-                │   └── ProductService.java
-                ├── repository
-                │   └── ProductRepository.java
-                ├── dto
-                │   └── ProductDTO.java  (Java record)
-                └── model
-                    └── Product.java
+    URL: http://localhost:8080/api/products
+    Response: Lista todos produtos salvos.
 
-    Controller: recebe as requisições HTTP
+GET produto por Id:
 
-    Service: lógica e conversão entre entity e DTO
+    URL: http://localhost:8080/api/products/{id}
+    Response: Busca o produto pelo Id.
 
-    Repository: interface com o banco via Spring Data JPA
+POST criar um novo produto:
 
-    DTO: record ProductDTO(id, name, description, price) pra mapear os dados
-    Medium
+    URL: http://localhost:8080/api/products
+    Body: { "name": "Laptop", "description": "A high-performance laptop.", "price": 1200.00 }
+
+PUT update de um produto existente:
+
+    URL: http://localhost:8080/api/products/{id}
+    Body: { "name": "Updated Laptop", "description": "An updated high-performance laptop.", "price": 1300.00 }
+
+DELETE um produto:
+
+    URL: http://localhost:8080/api/products/{id}
+    Response: No content (HTTP 204).
 
 # Licença
 
